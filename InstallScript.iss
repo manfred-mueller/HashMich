@@ -2,7 +2,8 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "HashMich"
-#define MyAppVersion "1.0.0"
+#define MyAppExeName MyAppName + ".exe"
+#define MyAppVersion "1.0.1"
 #define MyAppPublisher "NASS e.K."
 #define MyAppURL "https://www.nass-ek.de"
 
@@ -28,6 +29,11 @@ OutputDir=bin\Release
 OutputBaseFilename={#MyAppName}_setup-{#MyAppVersion}
 SetupIconFile=D:\Bilder\nass-ek.ico
 UninstallDisplayIcon={uninstallexe}
+;Begin adjustments for showing the logo
+DisableWelcomePage=False
+WizardImageFile=D:\Bilder\wz_nass-ek.bmp
+WizardSmallImageFile=D:\Bilder\wz_leer_small.bmp
+;End adjustments for showing the logo
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -36,8 +42,84 @@ SignTool=Certum
 [Languages]
 Name: "german"; MessagesFile: "compiler:Languages\German.isl"
 
-[Files]
-Source: "bin\Release\HashMich.exe"; DestDir: "{userpf}/{#MyAppName}"; DestName: "HashMich.exe"; Flags: confirmoverwrite; MinVersion: 0,6.0sp2
+[CustomMessages]
+UninstallMe=Uninstall {#MyAppName}
+german.UninstallMe={#MyAppName} deinstallieren
+CalculateHash=calculate hashes
+german.CalculateHashes=Hashwerte berechnen
 
-[UninstallDelete]
-Type: files; Name: "{userpf}/{#MyAppName}\HashMich.exe"
+[Tasks]
+Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
+
+[Icons]
+Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}";
+Name: "{group}\{cm:UninstallMe}"; Filename: "{uninstallexe}";
+Name: "{userdesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon;
+
+[Files]
+Source: "bin\Release\{#MyAppExeName}"; DestDir: "{app}"; DestName: "{#MyAppExeName}"; Flags: confirmoverwrite
+
+[Registry]
+; Add a new shell command for your application in the context menu for all files (*)
+Root: HKCU; Subkey: "Software\Classes\*\shell\{#MyAppName}"; ValueType: string; ValueName: ""; ValueData: "{cm:CalculateHashes}"
+Root: HKCU; Subkey: "Software\Classes\*\shell\{#MyAppName}\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""
+
+[Code]
+
+function GetUninstallString(): String;
+var
+  sUnInstPath: String;
+  sUnInstallString: String;
+begin
+  sUnInstPath := ExpandConstant('Software\Microsoft\Windows\CurrentVersion\Uninstall\{#emit SetupSetting("AppId")}_is1');
+  sUnInstallString := '';
+  if not RegQueryStringValue(HKLM, sUnInstPath, 'UninstallString', sUnInstallString) then
+    RegQueryStringValue(HKCU, sUnInstPath, 'UninstallString', sUnInstallString);
+  Result := sUnInstallString;
+end;
+
+
+{ ///////////////////////////////////////////////////////////////////// }
+function IsUpgrade(): Boolean;
+begin
+  Result := (GetUninstallString() <> '');
+end;
+
+
+{ ///////////////////////////////////////////////////////////////////// }
+function UnInstallOldVersion(): Integer;
+var
+  sUnInstallString: String;
+  iResultCode: Integer;
+begin
+{ Return Values: }
+{ 1 - uninstall string is empty }
+{ 2 - error executing the UnInstallString }
+{ 3 - successfully executed the UnInstallString }
+
+  { default return value }
+  Result := 0;
+
+  { get the uninstall string of the old app }
+  sUnInstallString := GetUninstallString();
+  if sUnInstallString <> '' then begin
+    sUnInstallString := RemoveQuotes(sUnInstallString);
+    if Exec(sUnInstallString, '/SILENT /NORESTART /SUPPRESSMSGBOXES','', SW_HIDE, ewWaitUntilTerminated, iResultCode) then
+      Result := 3
+    else
+      Result := 2;
+  end else
+    Result := 1;
+end;
+
+{ ///////////////////////////////////////////////////////////////////// }
+procedure CurStepChanged(CurStep: TSetupStep);
+begin
+  if (CurStep=ssInstall) then
+  begin
+    if (IsUpgrade()) then
+    begin
+      UnInstallOldVersion();
+    end;
+  end;
+end;

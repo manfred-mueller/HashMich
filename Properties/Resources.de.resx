@@ -130,13 +130,13 @@
     <value>Fügen Sie hier ein Hash ein, um es mit den obigen Ergebnissen zu vergleichen:</value>
   </data>
   <data name="MainForm_InitializeComponent_CalculateHashes" xml:space="preserve">
-    <value>Hashes berechnen</value>
+    <value>Hashwerte berechnen</value>
   </data>
   <data name="MainForm_InitializeComponent_BrowseFilesystem" xml:space="preserve">
     <value>Dateisystem durchsuchen</value>
   </data>
   <data name="MainForm_InitializeComponent_FileHashCalculator" xml:space="preserve">
-    <value>Hash Calculator</value>
+    <value>Hash Kalkulator</value>
   </data>
   <data name="MainForm_MainForm_Error" xml:space="preserve">
     <value>Fehler</value>
@@ -169,7 +169,7 @@
     <value>Fehler: {0}</value>
   </data>
   <data name="MainForm_cbContext_CheckedChanged_CalculateHashValue" xml:space="preserve">
-    <value>Hashwert berechnen</value>
+    <value>Hashwerte berechnen</value>
   </data>
   <data name="MainForm_InitializeComponent_DoubleClickSavesValueToClipboard" xml:space="preserve">
     <value>Doppelklick speichert Wert in der Zwischenablage</value>

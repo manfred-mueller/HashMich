@@ -13,19 +13,14 @@
 // You should have received a copy of the GNU General Public License
 // along with Hash Calculator. If not, see <http://www.gnu.org/licenses/>.
 
+using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Security.Cryptography;
-using System.Text;
-using System.Diagnostics;
-using System.Windows.Forms;
-using Microsoft.Win32;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
+using System.Windows.Forms;
 
 namespace HashMich
 {
@@ -245,6 +240,8 @@ namespace HashMich
                             }
                         }
                     }
+                    Properties.Settings.Default.contextMenu = true;
+                    Properties.Settings.Default.Save();
                 }
                 else
                 {
@@ -256,6 +253,8 @@ namespace HashMich
                             shellKey.DeleteSubKeyTree(Application.ProductName);
                         }
                     }
+                    Properties.Settings.Default.contextMenu = false;
+                    Properties.Settings.Default.Save();
                 }
                 Properties.Settings.Default.contextMenu = cbContext.Checked;
                 Properties.Settings.Default.Save();
@@ -263,18 +262,6 @@ namespace HashMich
             catch (Exception ex)
             {
                 MessageBox.Show(String.Format(HashMich.Properties.Resources.MainForm_cbContext_CheckedChanged_Error0, ex.Message), HashMich.Properties.Resources.MainForm_MainForm_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void checkKey()
-        {
-            if (ProgKey != null)
-            {
-                cbContext.Checked = true;
-            }
-            else
-            {
-                cbContext.Checked = false;
             }
         }
 

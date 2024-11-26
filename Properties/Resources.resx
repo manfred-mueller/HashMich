@@ -173,7 +173,7 @@
     <value>Error: {0}</value>
   </data>
   <data name="MainForm_cbContext_CheckedChanged_CalculateHashValue" xml:space="preserve">
-    <value>Calculate hash value</value>
+    <value>Calculate hashes</value>
   </data>
   <data name="HashMich" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\HashMich.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -188,6 +188,6 @@
     <value>Help</value>
   </data>
   <data name="MainForm_label3_Click_HashMich00CalculatesHashesForTheGiveFile0AcceptsTheFileAsParameter0CanBeRegisteredInTheUserSContextMenu0DoubleClickCopiesTheValueToTheClipbopard" xml:space="preserve">
-    <value>- calculates hashes for the give file{0}- accepts the file as parameter{0}- can be registered in the user's context menu{0}- color highlights the matching value in a control{0}- copies the matching value to the clipboard on double click</value>
+    <value>- calculates hashes for the given file{0}- accepts the file as parameter{0}- can be registered in the user's context menu{0}- color highlights the matching value in a control{0}- copies the matching value to the clipboard on double click</value>
   </data>
 </root>

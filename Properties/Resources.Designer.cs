@@ -91,7 +91,7 @@ namespace HashMich.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Calculate hash value ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Calculate hashes ähnelt.
         /// </summary>
         internal static string MainForm_cbContext_CheckedChanged_CalculateHashValue {
             get {
@@ -217,7 +217,7 @@ namespace HashMich.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die - calculates hashes for the give file{0}- accepts the file as parameter{0}- can be registered in the user&apos;s context menu{0}- color highlights the matching value in a control{0}- copies the matching value to the clipboard on double click ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die - calculates hashes for the given file{0}- accepts the file as parameter{0}- can be registered in the user&apos;s context menu{0}- color highlights the matching value in a control{0}- copies the matching value to the clipboard on double click ähnelt.
         /// </summary>
         internal static string MainForm_label3_Click_HashMich00CalculatesHashesForTheGiveFile0AcceptsTheFileAsParameter0CanBeRegisteredInTheUserSContextMenu0DoubleClickCopiesTheValueToTheClipbopard {
             get {
